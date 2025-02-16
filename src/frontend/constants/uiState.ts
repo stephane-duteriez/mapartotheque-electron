@@ -1,0 +1,5 @@
+export enum UiState {
+	SHOW_CATEGORIES = "SHOW_CATEGORIES",
+	SHOW_TUNES = "SHOW_TUNES",
+	SHOW_HOME = "SHOW_HOME",
+}
