@@ -9,13 +9,15 @@
     "dev": "concurrently \"vite --host\" \"cross-env DEV= tsc-watch -p tsconfig-electron.json --onSuccess \\\"electron --no-sandbox --disable-gpu-sandbox --disable-dev-shm-usage .\\\"\"",
     "preview": "vite build && tsc -p tsconfig-electron.json && cross-env PREVIEW= electron .",
     "build": "vite build && tsc -p tsconfig-electron.json && electron-forge make",
-    "start": "electron-forge start -- --no-sandbox --disable-gpu-sandbox --disable-dev-shm-usage",
+    "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make"
   },
   "dependencies": {
     "@blueprintjs/core": "^5.16.6",
+    "@electron-forge/plugin-vite": "^7.6.1",
     "@reduxjs/toolkit": "^2.5.1",
+    "@vitejs/plugin-react": "^4.3.4",
     "axios": "^1.7.9",
     "concurrently": "^9.1.2",
     "cross-env": "^7.0.3",

@@ -15,20 +15,20 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: join(__dirname, "preload.js"),
+      preload: join(__dirname, "preload.ts")
     },
   });
 
   if (isDev) {
     mainWindow.loadURL("http://localhost:5173");
-                                      // ^^^^ make sure this port
-                                      // matches the port used when
-                                      // you run 'yarn run vite'
+    // ^^^^ make sure this port
+    // matches the port used when
+    // you run 'yarn run vite'
     mainWindow.webContents.openDevTools();
   } else if (isPreview) {
     mainWindow.webContents.openDevTools();
     mainWindow.loadFile("dist/index.html");
-                  // 3. ^^^^^ this 'dist' folder will be our output folder
+    // 3. ^^^^^ this 'dist' folder will be our output folder
   } else {
     mainWindow.loadFile("dist/index.html");
   }

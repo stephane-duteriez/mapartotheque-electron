@@ -5,7 +5,6 @@ const uiSlice = createSlice({
 	name: "ui",
 	initialState: {
 		uiState: UiState.SHOW_HOME,
-		selectedCategory: null,
 		selectedTune: null,
 	},
 	reducers: {
@@ -18,10 +17,6 @@ const uiSlice = createSlice({
 		showHome: (state) => {
 			state.uiState = UiState.SHOW_HOME;
 		},
-		setSelectedCategory: (state, action) => {
-			state.selectedCategory = action.payload;
-			state.uiState = UiState.SHOW_TUNES;
-		},
 		setSelectedTune: (state, action) => {
 			state.selectedTune = action.payload;
 			state.uiState = UiState.SHOW_TUNES;
@@ -29,5 +24,5 @@ const uiSlice = createSlice({
 	},
 });
 
-export const { showCategories, showTunes, showHome, setSelectedCategory, setSelectedTune } = uiSlice.actions;
+export const { showCategories, showTunes, showHome, setSelectedTune } = uiSlice.actions;
 export default uiSlice.reducer;
