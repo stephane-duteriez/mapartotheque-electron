@@ -5,7 +5,7 @@ import {
 	showHome as showHomeAction,
 	setSelectedTune as setSelectedTuneAction,
 } from "./ui.slice";
-import { Tune } from "../../../types";
+import { Tune } from "../../../../types";
 
 export const useDispatchUi = () => {
 	const dispatch = useDispatch();

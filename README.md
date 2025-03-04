@@ -48,3 +48,7 @@ export default tseslint.config({
   },
 })
 ```
+
+
+installation du package :
+sudo dpkg -i mapartotheque-electron_0.0.0_amd64.deb 

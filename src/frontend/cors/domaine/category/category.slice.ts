@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Category } from "../../../types";
+import { Category } from "../../../../types";
 import { CategoryState } from "./category.type";
 import { setSelectedCategoryReducer } from "./useCases/setSelectedCategory.use-case";
 

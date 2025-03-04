@@ -23,6 +23,20 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@mp/store": [
+        "./src/frontend/cors/store.ts"
+      ],
+      "@mp/types/*": [
+        "src/types/*"
+      ],
+      "@mp/slice/*": [
+        "./src/frontend/cors/domaine/*"
+      ],
+      "@/*": [
+        "./src/*"
+      ]
+    }
   },
   "include": [
     "src"

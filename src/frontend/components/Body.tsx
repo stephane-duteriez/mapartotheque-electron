@@ -2,7 +2,7 @@ import { UiState } from "../constants/uiState";
 import { useSelectorUi } from "../cors/domaine/ui/useSelectorUi";
 import { Home } from "./Home";
 import { CategoryForm } from "./CategoryForm";
-import { TuneForm } from "./TuneForm";
+import { TuneForm } from "./tuneForm/TuneForm";
 
 export const Body = () => {
 	const uiState = useSelectorUi();

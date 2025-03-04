@@ -3,7 +3,7 @@ import {
 	updateSelectedCategory as updateSelectedCategoryAction,
 } from "./category.slice";
 import { setSelectedCategory as setSelectedCategoryAction } from "./useCases/setSelectedCategory.use-case";
-import { Category } from "../../../types";
+import { Category } from "../../../../types";
 
 export const useDispatchCategory = () => {
 	const dispatch = useDispatch();

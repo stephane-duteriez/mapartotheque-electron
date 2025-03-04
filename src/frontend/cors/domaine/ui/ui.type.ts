@@ -1,4 +1,4 @@
-import { Category, Tune } from "../../../types";
+import { Category, Tune } from "../../../../types";
 
 export type UiState = {
 	showCategories: boolean;

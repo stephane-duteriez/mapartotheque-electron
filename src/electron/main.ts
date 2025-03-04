@@ -1,7 +1,9 @@
 // src/electron/main.ts
 
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
+import { execAsync } from "./utils/exec";
 import { join } from "path";
+import { writeFile, readFile } from "fs/promises";
 
 // 1. this import won't work yet, but we will fix that next
 import "./api";
@@ -10,12 +12,16 @@ import "./api";
 const isDev = process.env.DEV != undefined;
 const isPreview = process.env.PREVIEW != undefined;
 
+let window: BrowserWindow | null = null;
+
+let mapartothequeDirectory: string = ""
+
 function createWindow() {
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1400,
+    height: 800,
     webPreferences: {
-      preload: join(__dirname, "preload.ts")
+      preload: join(__dirname, "preload.js")
     },
   });
 
@@ -32,13 +38,16 @@ function createWindow() {
   } else {
     mainWindow.loadFile("dist/index.html");
   }
+  return mainWindow;
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  createWindow();
+  window = createWindow();
+
+  mapartothequeDirectory = join(app.getPath("home"), ".mapartotheque")
 
   app.on("activate", () => {
     // On macOS it's common to re-create a window in the app when the
@@ -53,3 +62,26 @@ app.whenReady().then(() => {
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });
+
+ipcMain.handle("generateLilypond", async (event, consoleParams) => {
+  console.log("generateLilypond", consoleParams)
+  const { lilypondFile, outputFile, params } = consoleParams
+  const lilypondFilePath = join(mapartothequeDirectory, lilypondFile)
+  const outputFilePath = join(mapartothequeDirectory, outputFile)
+  const lilypondParams = params.replace("***outputFile***", outputFilePath).replace("***inputFile***", lilypondFilePath)
+  const pageDirectory = __dirname.replace('app.asar/dist', lilypondParams)
+
+  const result = await execAsync(join(pageDirectory, "batch/lilypond.sh " + lilypondParams))
+  return result.stdout;
+})
+
+ipcMain.handle("writeToFile", async (event, { fileName, contents }) => {
+  await writeFile(join(mapartothequeDirectory, fileName), contents);
+})
+
+ipcMain.handle("readFromFile", async (event, file_name) => {
+  console.log("readFromFile", file_name)
+  const mapartothequeDirectory = join(app.getPath("home"), ".mapartotheque")
+  const result = await readFile(join(mapartothequeDirectory, file_name));
+  return result;
+})

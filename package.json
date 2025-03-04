@@ -6,7 +6,7 @@
   "description": "Mapartotheque Electron",
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently \"vite --host\" \"cross-env DEV= tsc-watch -p tsconfig-electron.json --onSuccess \\\"electron --no-sandbox --disable-gpu-sandbox --disable-dev-shm-usage .\\\"\"",
+    "dev": "concurrently \"vite --host\" \"cross-env DEV= tsc-watch -p tsconfig-electron.json --onSuccess \\\"electron --trace-warnings --no-sandbox --disable-gpu-sandbox --disable-dev-shm-usage .\\\"\"",
     "preview": "vite build && tsc -p tsconfig-electron.json && cross-env PREVIEW= electron .",
     "build": "vite build && tsc -p tsconfig-electron.json && electron-forge make",
     "start": "electron-forge start",
@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@blueprintjs/core": "^5.16.6",
+    "@blueprintjs/select": "^5.3.11",
     "@electron-forge/plugin-vite": "^7.6.1",
     "@reduxjs/toolkit": "^2.5.1",
     "@vitejs/plugin-react": "^4.3.4",
@@ -24,7 +25,9 @@
     "electron-squirrel-startup": "^1.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-redux": "^9.2.0"
+    "react-redux": "^9.2.0",
+    "rollup-plugin-copy": "^3.5.0",
+    "vite-plugin-static-copy": "^2.2.0"
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.6.1",

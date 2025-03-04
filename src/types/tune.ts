@@ -5,8 +5,8 @@ export type Tune = {
 	name: string;
 	category: Category;
 	youtubeLink: string;
-	lilyTest: string;
-	lilyChords: string;
+	lilypondText: string;
+	lilypondChords: string;
 	imageUrl: string;
 	pdfUrl: string;
 }

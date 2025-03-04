@@ -33,3 +33,8 @@
 .flex-justify-end {
   justify-content: flex-end;
 }
+
+.png-lilypond {
+  width: 100%;
+  height: 100%;
+}

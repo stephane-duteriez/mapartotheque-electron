@@ -1,18 +1,18 @@
 import { Button, Card, CardList } from "@blueprintjs/core";
 import { useGetCategoriesQuery } from "../cors/api/categories";
-import { useGetTunesQuery } from "../cors/api/getTunes";
+import { useGetTunesQuery } from "../cors/api/tunes";
 import { useState } from "react";
-import { Category } from "../types";
-import { useDispatchUi } from "../cors/domaine/ui/useDispatchUi";
+import { Category } from "../../types";
 import { useDispatchCategory } from "../cors/domaine/category/useDispatchCategory";
+import { useDispatchTune } from "../cors/domaine/tune/usDispatchTune";
 
 export const Home = () => {
 	const [selectedCurrentCategory, setSelectedCurrentCategory] = useState<Category | null>(null);
 	const { data: categories, error, isLoading } = useGetCategoriesQuery();
 	const { data: tunes, error: tunesError, isLoading: tunesLoading } = useGetTunesQuery();
-	const { setSelectedTune } = useDispatchUi();
 	const { setSelectedCategory } = useDispatchCategory();
-
+	const { setSelectedTune } = useDispatchTune();
+	console.log("selectedTune", tunes)
 	return (
 		<div>
 			<h1>Home</h1>
@@ -42,6 +42,7 @@ export const Home = () => {
 					</CardList>
 				</div>
 				<div className="flex-1">
+					<Button className="margin-1" icon="plus" onClick={() => setSelectedTune({ name: "" })} />
 					<CardList>
 						{tunesLoading && <p>Loading...</p>}
 						{tunesError && <p>Error: something went wrong</p>}
