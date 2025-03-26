@@ -12,7 +12,7 @@ export const Home = () => {
 	const { data: tunes, error: tunesError, isLoading: tunesLoading } = useGetTunesQuery();
 	const { setSelectedCategory } = useDispatchCategory();
 	const { setSelectedTune } = useDispatchTune();
-	console.log("selectedTune", tunes)
+
 	return (
 		<div>
 			<h1>Home</h1>

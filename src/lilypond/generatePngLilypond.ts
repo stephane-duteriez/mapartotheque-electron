@@ -26,6 +26,5 @@ export const generatePngLilypond = async (tune: Partial<Tune>): Promise<{ img: H
 	const url = URL.createObjectURL(blob)
 	const img = new Image()
 	img.src = url
-	console.log("img", img)
 	return { img, blob }
 };

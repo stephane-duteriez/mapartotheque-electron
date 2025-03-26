@@ -3,7 +3,7 @@ export const pdfHeader = `
    \\paper {
       markup-system-spacing.basic-distance = #12
   }
-  \score {
+  \\score {
     <<
        \\context Staff
          { \\tune } 

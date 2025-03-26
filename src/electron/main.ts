@@ -5,9 +5,6 @@ import { execAsync } from "./utils/exec";
 import { join } from "path";
 import { writeFile, readFile } from "fs/promises";
 
-// 1. this import won't work yet, but we will fix that next
-import "./api";
-
 // 2. simple check if we are running in dev / preview / production
 const isDev = process.env.DEV != undefined;
 const isPreview = process.env.PREVIEW != undefined;

@@ -3,7 +3,16 @@ import { Category } from "../../../types";
 
 export const categoryApi = createApi({
 	reducerPath: "categoryApi",
-	baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api" }),
+	baseQuery: fetchBaseQuery({
+		baseUrl: "http://localhost:3000/api",
+		prepareHeaders: (headers) => {
+			const token = localStorage.getItem("token")
+			if (token) {
+				headers.set("Authorization", token)
+			}
+			return headers
+		}
+	}),
 	tagTypes: ["Category"],
 	endpoints: (builder) => ({
 		getCategories: builder.query<Category[], void>({

@@ -1,17 +1,16 @@
 import { Button, FormGroup, InputGroup, TextArea } from "@blueprintjs/core"
-import { usePutTuneMutation } from "../../cors/api/tunes"
-import { usePostTuneMutation } from "../../cors/api/tunes"
-import { useDeleteTuneMutation } from "../../cors/api/tunes"
+import { Select } from "@blueprintjs/select"
+import { useState } from "react"
+import { usePutTuneMutation, usePostTuneMutation, useDeleteTuneMutation } from "../../cors/api/tunes"
 import { useDispatchTune } from "../../cors/domaine/tune/usDispatchTune"
 import { useDispatchUi } from "../../cors/domaine/ui/useDispatchUi"
 import { useSelectorTune } from "../../cors/domaine/tune/useSelectorTune"
-import { Select } from "@blueprintjs/select"
 import { useGetCategoriesQuery } from "../../cors/api/categories"
 import { useUploadFileMutation } from "../../cors/api/storage"
-import { Category } from "../../../types"
+import { Category } from "../../../types/category"
 import { categoryRender } from "./categoryRender"
-import { generatePngLilypond } from "../../../lilypond/generatePngLilypond"
-import { useState } from "react"
+import { generateFileName } from "../../../utils/generateFileName"
+import { generatePngLilypond, generateAndUploadPdfLilypond } from "../../../lilypond"
 
 interface Image {
 	img: HTMLImageElement
@@ -28,19 +27,22 @@ export const TuneForm = () => {
 	const { showHome } = useDispatchUi();
 	const { data: categories } = useGetCategoriesQuery();
 	const [uploadFile] = useUploadFileMutation();
-	// useEffect(() => {
-	// 	window.backend.receive("sendReturnFromLilypond", (file_name, stdout) => {
-	// 		console.log("sendReturnFromLilypond", file_name, stdout)
-	// 	})
-	// }, [])
-	console.log(pngLilypond)
+
 	const handleSave = async () => {
 		const selectedTuneCopy = { ...selectedTune }
 		if (pngLilypond) {
 			const formData = new FormData()
-			formData.append("file", pngLilypond.blob, "tune.png")
+			let fileName = decodeURIComponent(selectedTuneCopy.imageUrl?.split("/").pop() ?? "")
+			if (!fileName || fileName === "tune.png") {
+				fileName = generateFileName({ name: selectedTuneCopy.name ?? "tune", format: "png" })
+
+			}
+			formData.append("file", pngLilypond.blob, fileName)
 			const { data } = await uploadFile({ file: formData })
 			selectedTuneCopy.imageUrl = data?.url
+			const { pdfFileName } = await generateAndUploadPdfLilypond(selectedTuneCopy, uploadFile)
+			console.log("pdfFileName", pdfFileName)
+			selectedTuneCopy.pdfUrl = pdfFileName
 		}
 		if (selectedTuneCopy) {
 			try {

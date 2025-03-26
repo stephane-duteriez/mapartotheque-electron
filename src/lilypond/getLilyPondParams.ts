@@ -11,7 +11,7 @@ export const getLilypondParams = (tune: Partial<Tune>) => {
 	title = \\title
 }
 tune = ${lilypondText}
-chords_tune = \\chords { ${lilypondChords} }`,
+chords_tune = \\chords { ${lilypondChords ?? ""} }`,
 		pdfHeader: pdfHeader.replace("$category$", category?.name ?? ""),
 		pngHeader: pngHeaderPlain,
 	};
